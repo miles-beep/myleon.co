@@ -50,15 +50,15 @@
     },
     {
       "source": "/wp-content/:path*",
-      "destination": "https://web.archive.org/web/20201201000000if_/https://www.myleon.co/wp-content/:path*"
+      "destination": "https://web.archive.org/web/0if_/https://www.myleon.co/wp-content/:path*"
     },
     {
       "source": "/wp-includes/:path*",
-      "destination": "https://web.archive.org/web/20201201000000if_/https://www.myleon.co/wp-includes/:path*"
+      "destination": "https://web.archive.org/web/0if_/https://www.myleon.co/wp-includes/:path*"
     },
     {
       "source": "/wp-json/:path*",
-      "destination": "https://web.archive.org/web/20201201000000if_/https://www.myleon.co/wp-json/:path*"
+      "destination": "https://web.archive.org/web/0if_/https://www.myleon.co/wp-json/:path*"
     }
   ]
 }
