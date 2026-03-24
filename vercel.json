@@ -41,12 +41,60 @@
       "source": "/xmlrpc.php",
       "destination": "/",
       "permanent": false
+    },
+    {
+      "source": "/terms-of-service",
+      "destination": "https://app.myleon.co/terms-of-service",
+      "permanent": false
+    },
+    {
+      "source": "/privacy-policy",
+      "destination": "https://app.myleon.co/privacy-policy",
+      "permanent": false
+    },
+    {
+      "source": "/account/sign-up",
+      "destination": "/sign-up",
+      "permanent": false
+    },
+    {
+      "source": "/account/sign-in",
+      "destination": "/sign-up",
+      "permanent": false
+    },
+    {
+      "source": "/team/playbooks/:path*",
+      "destination": "/playbooks",
+      "permanent": false
+    },
+    {
+      "source": "/post/:slug*",
+      "destination": "/manifesto",
+      "permanent": false
+    },
+    {
+      "source": "/en/:path*",
+      "destination": "https://help.myleon.co/en/:path*",
+      "permanent": false
+    },
+    {
+      "source": "/cdn-cgi/:path*",
+      "destination": "/",
+      "permanent": false
     }
   ],
   "rewrites": [
     {
       "source": "/web/:path*",
       "destination": "/"
+    },
+    {
+      "source": "/_wb/global-uploads/:path*",
+      "destination": "https://web.archive.org/web/0if_/https://global-uploads.webflow.com/:path*"
+    },
+    {
+      "source": "/_wb/uploads-ssl/:path*",
+      "destination": "https://web.archive.org/web/0if_/https://uploads-ssl.webflow.com/:path*"
     },
     {
       "source": "/wp-content/:path*",

@@ -1,7 +1,27 @@
 (() => {
   const MYLEON_HOST_RE = /^https?:\/\/(?:www\.)?myleon\.co/i;
+  const WEBFLOW_GLOBAL_RE = /^https?:\/\/global-uploads\.webflow\.com\/(.+)$/i;
+  const WEBFLOW_UPLOADS_SSL_RE = /^https?:\/\/uploads-ssl\.webflow\.com\/(.+)$/i;
   const WAYBACK_WRAP_RE = /^https?:\/\/web\.archive\.org\/web\/\d{6,14}(?:[a-z_]+)?\/(https?:\/\/.+)$/i;
   const WAYBACK_WRAP_REL_RE = /^\/web\/\d{6,14}(?:[a-z_]+)?\/(https?:\/\/.+)$/i;
+
+  const HASH_LINK_RULES = [
+    { match: /leon home/i, href: "/" },
+    { match: /integrations?/i, href: "/integrations" },
+    { match: /(okr|goals?)/i, href: "/features" },
+    { match: /partners?/i, href: "/partners" },
+    { match: /events?/i, href: "/leon-events" },
+    { match: /(ebook|books?\s*&?\s*guides?)/i, href: "/guides" },
+    { match: /(view all posts|the leon blog)/i, href: "/manifesto" },
+    { match: /start playbook/i, href: "/playbooks" },
+    { match: /playbook playlists?/i, href: "/playlists" },
+    { match: /(request a demo|contact us)/i, href: "/demo-request" },
+    { match: /(get started|start for free)/i, href: "/sign-up" },
+    { match: /(apply today|become a leon expert)/i, href: "/leon-experts" },
+    { match: /^terms$/i, href: "/terms" },
+    { match: /^privacy$/i, href: "/user-privacy" },
+    { match: /^support$/i, href: "https://help.myleon.co/en/" }
+  ];
 
   function decodeHref(href) {
     if (!href) return href;
@@ -25,16 +45,63 @@
       }
     }
 
+    const wfGlobal = out.match(WEBFLOW_GLOBAL_RE);
+    if (wfGlobal) return `/_wb/global-uploads/${wfGlobal[1]}`;
+
+    const wfUploadsSsl = out.match(WEBFLOW_UPLOADS_SSL_RE);
+    if (wfUploadsSsl) return `/_wb/uploads-ssl/${wfUploadsSsl[1]}`;
+
     return out;
+  }
+
+  function fixHashLink(anchor) {
+    const href = (anchor.getAttribute("href") || "").trim();
+    if (href !== "#") return;
+
+    const text = (anchor.textContent || "").replace(/\s+/g, " ").trim();
+    if (!text) return;
+
+    for (const rule of HASH_LINK_RULES) {
+      if (rule.match.test(text)) {
+        anchor.setAttribute("href", rule.href);
+        if (/^https?:\/\//i.test(rule.href)) {
+          anchor.setAttribute("target", "_blank");
+          anchor.setAttribute("rel", "noopener noreferrer");
+        }
+        break;
+      }
+    }
   }
 
   function normalizeAnchors() {
     const anchors = document.querySelectorAll("a[href]");
     for (const a of anchors) {
+      fixHashLink(a);
       const href = a.getAttribute("href");
       const normalized = decodeHref(href || "");
       if (normalized && normalized !== href) {
         a.setAttribute("href", normalized);
+      }
+    }
+  }
+
+  function normalizeAssets() {
+    const elements = document.querySelectorAll("[src], [href]");
+    for (const el of elements) {
+      if (el.hasAttribute("src")) {
+        const src = el.getAttribute("src");
+        const normalized = decodeHref(src || "");
+        if (normalized && normalized !== src) {
+          el.setAttribute("src", normalized);
+        }
+      }
+
+      if (el.hasAttribute("href")) {
+        const href = el.getAttribute("href");
+        const normalized = decodeHref(href || "");
+        if (normalized && normalized !== href) {
+          el.setAttribute("href", normalized);
+        }
       }
     }
   }
@@ -54,6 +121,7 @@
   }
 
   document.addEventListener("DOMContentLoaded", () => {
+    normalizeAssets();
     normalizeAnchors();
     improveForms();
   });
