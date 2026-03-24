@@ -89,12 +89,20 @@
       "destination": "/"
     },
     {
-      "source": "/_wb/global-uploads/:path*",
+      "source": "/_wb/global-uploads/5ee8a49c6930b1443e121a76/:path*",
       "destination": "https://web.archive.org/web/0if_/https://global-uploads.webflow.com/:path*"
     },
     {
-      "source": "/_wb/uploads-ssl/:path*",
+      "source": "/_wb/global-uploads/:path*",
+      "destination": "https://global-uploads.webflow.com/:path*"
+    },
+    {
+      "source": "/_wb/uploads-ssl/5ee8a49c6930b1443e121a76/:path*",
       "destination": "https://web.archive.org/web/0if_/https://uploads-ssl.webflow.com/:path*"
+    },
+    {
+      "source": "/_wb/uploads-ssl/:path*",
+      "destination": "https://uploads-ssl.webflow.com/:path*"
     },
     {
       "source": "/wp-content/:path*",
