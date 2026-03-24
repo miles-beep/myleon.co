@@ -1,0 +1,64 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/get-started",
+      "destination": "/sign-up",
+      "permanent": false
+    },
+    {
+      "source": "/about",
+      "destination": "/about-leon",
+      "permanent": false
+    },
+    {
+      "source": "/science-and-team",
+      "destination": "/our-science",
+      "permanent": false
+    },
+    {
+      "source": "/feed",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/comments/feed",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/category/:slug*",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/author/:slug*",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/xmlrpc.php",
+      "destination": "/",
+      "permanent": false
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/web/:path*",
+      "destination": "/"
+    },
+    {
+      "source": "/wp-content/:path*",
+      "destination": "https://web.archive.org/web/20201201000000if_/https://www.myleon.co/wp-content/:path*"
+    },
+    {
+      "source": "/wp-includes/:path*",
+      "destination": "https://web.archive.org/web/20201201000000if_/https://www.myleon.co/wp-includes/:path*"
+    },
+    {
+      "source": "/wp-json/:path*",
+      "destination": "https://web.archive.org/web/20201201000000if_/https://www.myleon.co/wp-json/:path*"
+    }
+  ]
+}

@@ -74,6 +74,16 @@ function unwrapWaybackUrls(html) {
     "$1",
   );
 
+  // Unwrap escaped variants embedded in inline JS JSON strings.
+  next = next.replace(
+    /https?:\\\/\\\/web\.archive\.org\\\/web\\\/\d{6,14}(?:[a-z_]+)?\\\/(https?:\\\/\\\/[^"'<>\\\s]+)/gi,
+    "$1",
+  );
+  next = next.replace(
+    /\\\/web\\\/\d{6,14}(?:[a-z_]+)?\\\/(https?:\\\/\\\/[^"'<>\\\s]+)/gi,
+    "$1",
+  );
+
   return next;
 }
 
@@ -88,7 +98,28 @@ function normalizeMyleonInternalUrls(html) {
   next = next.replace(/href=""/gi, 'href="/"');
   next = next.replace(/src=""/gi, 'src="/"');
 
+  // Fix archived mailto wrappers.
+  next = next.replace(
+    /https?:\/\/web\.archive\.org\/web\/\d{6,14}(?:[a-z_]+)?\/(mailto:[^"'\s<>]+)/gi,
+    "$1",
+  );
+  next = next.replace(
+    /https?:\\\/\\\/web\.archive\.org\\\/web\\\/\d{6,14}(?:[a-z_]+)?\\\/(mailto:[^"'\\\s<>]+)/gi,
+    "$1",
+  );
+
   return next;
+}
+
+function injectStabilizer(html) {
+  const marker = '<script src="/site-stabilizer.js"></script>';
+  if (html.includes(marker)) return html;
+
+  if (html.includes("</body>")) {
+    return html.replace(/<\/body>/i, `${marker}</body>`);
+  }
+
+  return `${html}\n${marker}\n`;
 }
 
 async function main() {
@@ -101,6 +132,7 @@ async function main() {
     next = removeWaybackToolbarMarkup(next);
     next = unwrapWaybackUrls(next);
     next = normalizeMyleonInternalUrls(next);
+    next = injectStabilizer(next);
 
     if (next !== original) {
       await fs.writeFile(file, next, "utf8");
