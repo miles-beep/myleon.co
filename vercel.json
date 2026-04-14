@@ -68,11 +68,6 @@
       "permanent": false
     },
     {
-      "source": "/post/:slug*",
-      "destination": "/manifesto",
-      "permanent": false
-    },
-    {
       "source": "/en/:path*",
       "destination": "https://help.myleon.co/en/:path*",
       "permanent": false
