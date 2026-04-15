@@ -177,6 +177,13 @@ h1, h2, h3 {
   letter-spacing: 0.04em;
 }
 
+.card-media--image {
+  background-size: cover;
+  background-position: center;
+  color: #fff2cc;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.55);
+}
+
 .card-body {
   padding: 18px;
 }
@@ -242,6 +249,24 @@ h1, h2, h3 {
 
 .article p {
   margin: 12px 0;
+}
+
+.article-hero {
+  margin: 18px 0 22px;
+}
+
+.article-hero img {
+  width: 100%;
+  display: block;
+  border-radius: 12px;
+  max-height: 440px;
+  object-fit: cover;
+}
+
+.article-hero figcaption {
+  margin-top: 8px;
+  font-size: 0.82rem;
+  color: var(--muted);
 }
 
 .article ul {
