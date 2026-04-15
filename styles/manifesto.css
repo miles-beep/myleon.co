@@ -368,3 +368,21 @@ h1, h2, h3 {
     border-radius: 14px;
   }
 }
+
+.stories-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 2px 0 10px;
+  scrollbar-width: thin;
+}
+
+.stories-track {
+  display: flex;
+  gap: 20px;
+  min-width: max-content;
+}
+
+.stories-track .card {
+  width: min(345px, calc(100vw - 56px));
+  flex: 0 0 auto;
+}
